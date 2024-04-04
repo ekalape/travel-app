@@ -1,34 +1,41 @@
 import { Component } from '@angular/core';
-import { RandomImageService } from '../../services/random-image.service';
+import { RandomImageService } from '@src/app/services/random-image.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { PresentationService } from '../../services/presentation.service';
+import { SearchBlockComponent } from '../search-block/search-block.component';
+
 
 @Component({
   selector: 'app-presentation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SearchBlockComponent],
   templateUrl: './presentation.component.html',
   styleUrl: './presentation.component.scss',
-  providers: [RandomImageService, /* PresentationService */]
+  providers: [RandomImageService, PresentationService]
 })
 export class PresentationComponent {
   result: Observable<Object>;
-  imgSrc = ""
+  imgSrc = "";
+  presentationText = "travel prowink";
+  additiveText = "with"
 
-  constructor(private imageService: RandomImageService, /* private presentationService: PresentationService */) {
+  constructor(private imageService: RandomImageService, private presentationService: PresentationService) {
     this.result = this.imageService.getRandomImage('random');
     // presentationService.countContent();
   }
 
   ngOnInit() {
+    this.imgSrc = this.presentationService.getRandomCityImage();
+
+    console.log("imgSrc", this.imgSrc);
 
     /*    this.result.subscribe((res: any) => {
          console.log(res);
          this.imgSrc = res
        }) */
     //this.imgSrc = '../../../assets/images/city1-full.jpeg'
-    //this.imgSrc = '../../../assets/images/germany/1.avif'
+
   }
 
 }

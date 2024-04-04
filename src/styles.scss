@@ -54,10 +54,12 @@ $travel_app-theme: mat.define-light-theme(
   background: $travel_app-button-bg;
   border-radius: 20px;
   padding: 0.5rem 2rem;
-  height: 30px;
+  height: 40px;
   min-width: 100px;
-
+  color: white;
   position: relative;
+  cursor: pointer;
+
   &:before {
     content: "";
     position: absolute;
@@ -69,6 +71,7 @@ $travel_app-theme: mat.define-light-theme(
     background: $travel_app-button-bg_hovered;
     opacity: 0;
     transition: all 0.5s ease-in-out;
+    cursor: pointer;
   }
 
   &:after {
@@ -107,8 +110,21 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
-  & .btn-gradient-bg {
+  & .btn.btn-gradient-bg {
     transition: all 1s ease-in-out;
     @include travel_app-btn-theme($travel_app-theme);
   }
+}
+
+@mixin montserrat($weight, $style: normal) {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: $weight;
+  font-style: $style;
+}
+
+@mixin babylonica {
+  font-family: "Babylonica", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
