@@ -1,8 +1,10 @@
-<form>
+<form (submit)="navigateToCountry()">
   <mat-form-field class="search-input__wrapper">
     <mat-label>Search for a country</mat-label>
-    <input matInput class="search-input">
+    <input matInput class="search-input" [(ngModel)]="currentCountry"
+      name="currentCountry">
   </mat-form-field>
-  <button mat-button class="btn btn-gradient-bg" type="button">Surprise me
+  <button mat-button class="btn btn-gradient-bg" type="button"
+    (click)="onSurpriseMeClick()">Surprise me
     <mat-icon>arrow_forward</mat-icon></button>
 </form>

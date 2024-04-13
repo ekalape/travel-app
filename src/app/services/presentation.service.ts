@@ -14,9 +14,9 @@ export class PresentationService {
     "usa",
     "kenya",
     "australia",
-    "norvegia",
+    "norway",
     "india",
-    "egipt",
+    "egypt",
   ]
 
   cities = [1, 2, 3, 4]

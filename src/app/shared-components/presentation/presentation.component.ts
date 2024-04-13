@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { PresentationService } from '../../services/presentation.service';
 import { SearchBlockComponent } from '../search-block/search-block.component';
+import { CanvasBoxComponent } from '../canvas-box/canvas-box.component';
 
 
 @Component({
   selector: 'app-presentation',
   standalone: true,
-  imports: [CommonModule, SearchBlockComponent],
+  imports: [CommonModule, SearchBlockComponent, CanvasBoxComponent],
   templateUrl: './presentation.component.html',
   styleUrl: './presentation.component.scss',
   providers: [RandomImageService, PresentationService]

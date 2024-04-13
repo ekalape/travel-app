@@ -1,0 +1,13 @@
+:host {
+  position: absolute;
+  right: 0;
+  top: 10%;
+
+  @media screen and (max-width: 1310px) {
+    right: 0;
+    top: 0;
+  }
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+}

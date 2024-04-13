@@ -16,29 +16,9 @@ import { unsplInterceptor } from './interceptors/unspl-interceptor.interceptor';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 
-
-  /*   animations: [
-      trigger('changeBg', [
-        state('notHovered, void', style({ background: 'linear-gradient(70deg, #7C3537 0%, #FFA229 100%)' })),
-        state('hovered', style({ background: 'linear-gradient(230deg,  #7C3537 0%, #FFA229 100%)' })),
-        transition(
-          'notHovered <=> hovered, void => notHovered, void => hovered',
-          animate('500ms')
-        ),
-      ]),
-    ], */
 })
 export class AppComponent {
   title = 'Let\'s travel';
   hovered = false;
-
-  /*   onMouseEnter() {
-      this.hovered = true;
-      console.log("entered");
-    }
-    onMouseLeave() {
-      this.hovered = false;
-      console.log("entered");
-    } */
 
 }

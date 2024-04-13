@@ -13,6 +13,6 @@ import { unsplInterceptor } from './interceptors/unspl-interceptor.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
   provideAnimations(),
-  //  importProvidersFrom(HttpClientModule),
+  importProvidersFrom(HttpClientModule),
   provideHttpClient(withInterceptors([unsplInterceptor]))]
 };

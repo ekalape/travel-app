@@ -11,6 +11,7 @@ export const unsplInterceptor: HttpInterceptorFn = (req, next) => {
   const url = req.url;
   console.log('url :>> ', url);
   let modifiedReq = req
+
   if (baseUrl && url.includes(baseUrl)) {
     modifiedReq = req.clone({
       headers: new HttpHeaders({
@@ -25,10 +26,13 @@ export const unsplInterceptor: HttpInterceptorFn = (req, next) => {
     map((event) => {
       if (event.type === HttpEventType.Response) {
         const resp = event.body as any;
+        if (url.includes("unsplash") && url.includes("random")) {
 
-        return event.clone({
-          body: resp[0].urls.full
-        })
+          return event.clone({
+            body: resp[0].urls.full
+          })
+        }
+
       }
       return event
     }))

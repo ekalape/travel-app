@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment';
-import { Observable } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
+import { CountryImageResult, CountryImageRoot } from '../models/country-image.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,30 @@ export class RandomImageService {
 
   }
 
-  getRandomImage(theme: string): Observable<Object> {
-    const res = this.httpClient.get(this.baseUrl + theme);
+  getRandomImage(country: string = 'random'): Observable<Object> {
 
 
-    return res;
+    let currentUrl = this.baseUrl
+
+    if (country === 'random')
+      currentUrl += 'photos/random?orientation=landscape&count=1&query=city';
+    else
+      currentUrl += `search/photos?query=${country}&order_by=relevant&orientation=landscape`
+
+
+    console.log('this.baseUrl inside service:>> ', currentUrl);
+    const result = this.httpClient.get(currentUrl)
+      .pipe(
+        tap((res) => console.log("if random, inside service ->", res)),
+        map((res) => {
+          if (country !== 'random') {
+            return (res as CountryImageRoot).results[0].urls.full
+          } else return res
+        })
+      )
+
+
+    return result;
 
   }
 

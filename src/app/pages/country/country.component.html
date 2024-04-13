@@ -1,0 +1,6 @@
+<img class="main-img" [src]="mainImgSrc" />
+<p>currentCountry: {{currentCountry?.commonName}}</p>
+<p>population: {{currentCountry?.population}}</p>
+
+@if(error.length)
+{<p>no such country</p>}
