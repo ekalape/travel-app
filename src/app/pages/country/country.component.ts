@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountryInfoType } from '@src/app/models/country-info.model';
-import { CountryService } from '@src/app/services/country.service';
+import { CountryService, ErrorType } from '@src/app/services/country.service';
+import { ErrorHandlingService } from '@src/app/services/error-handling.service';
 import { RandomImageService } from '@src/app/services/random-image.service';
 import { Subscription, tap } from 'rxjs';
 
@@ -16,39 +17,41 @@ import { Subscription, tap } from 'rxjs';
 export class CountryComponent {
 
   currentCountry: CountryInfoType | undefined;
-  error = "";
   sub: Subscription | undefined
   sub2: Subscription | undefined
   mainImgSrc = ""
 
+  errorSub: Subscription | undefined
+
+  error: ErrorType | null = null
+
   constructor(private readonly route: ActivatedRoute,
     private readonly countryService: CountryService,
-    private readonly imageService: RandomImageService
+    private readonly imageService: RandomImageService,
+    private errorService: ErrorHandlingService
   ) {
 
   }
 
   ngOnInit() {
 
+    this.errorSub = this.errorService.getError().subscribe((err) => {
+      console.log(err);
+      this.error = err
+    })
+
     const country = this.route.snapshot.paramMap.get('country');
     if (country) {
       console.log(country);
       console.log("response inside component0 ->", this.currentCountry);
       this.sub = this.countryService.getCountryInfo(country)
-        .pipe(
-          tap((res) => console.log("response inside tap ->", this.currentCountry))
-        )
+        .pipe(tap((res) => console.log(res)))
         .subscribe((res) => {
           this.currentCountry = res;
-          console.log("response inside component ->", res);
-          console.log("response inside component1 ->", this.currentCountry);
-
-          this.error = this.countryService.error.message;
-          console.log("error ->", this.countryService.error);
+          this.mainImgSrc = (res.images as string[])[0];
 
         })
 
-      this.sub2 = this.imageService.getRandomImage(country).subscribe((res) => this.mainImgSrc = res as string)
 
     }
   }
@@ -56,6 +59,8 @@ export class CountryComponent {
   ngOnDestroy() {
     this.sub?.unsubscribe()
     this.sub2?.unsubscribe()
+    this.errorSub?.unsubscribe()
+    this.errorService.clearError()
   }
 
 }

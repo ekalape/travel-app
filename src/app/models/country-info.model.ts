@@ -12,6 +12,7 @@ export type CountryInfoType = {
   population: number;
   timezone: string[];
   flag: string;
+  images?: string[] | string
 }
 
 

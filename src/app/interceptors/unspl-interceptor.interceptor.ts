@@ -1,7 +1,8 @@
-import { HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpEventType, HttpHandler, HttpHeaders, HttpInterceptor, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environment';
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable, catchError, map } from 'rxjs';
+import { ErrorHandlingService } from '../services/error-handling.service';
 
 const baseUrl = environment.US_API_BASE_URL
 
@@ -11,6 +12,7 @@ export const unsplInterceptor: HttpInterceptorFn = (req, next) => {
   const url = req.url;
   console.log('url :>> ', url);
   let modifiedReq = req
+  const errorService = inject(ErrorHandlingService)
 
   if (baseUrl && url.includes(baseUrl)) {
     modifiedReq = req.clone({
@@ -24,7 +26,10 @@ export const unsplInterceptor: HttpInterceptorFn = (req, next) => {
   //return next(modifiedReq);
   return next(modifiedReq).pipe(
     map((event) => {
-      if (event.type === HttpEventType.Response) {
+      console.log("Interceptor event --> ", event);
+      if (event.type === HttpEventType.Response && event.status >= 200 && event.status < 300) {
+        errorService.clearError();
+        console.log("event.status = ", event.status);
         const resp = event.body as any;
         if (url.includes("unsplash") && url.includes("random")) {
 
@@ -34,6 +39,16 @@ export const unsplInterceptor: HttpInterceptorFn = (req, next) => {
         }
 
       }
+      else {
+        if (event instanceof HttpResponse) {
+          errorService.setError({ name: "Http error " + event.status, message: event.statusText });
+          console.log("error inside interceptor");
+        }
+        else {
+          errorService.setError({ name: "Http error ", message: "Unknown Error" });
+        }
+      }
       return event
-    }))
+    }
+    ))
 };

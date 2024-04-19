@@ -1,15 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment';
-import { Observable, map, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, map, tap } from 'rxjs';
 import { CountryImageResult, CountryImageRoot } from '../models/country-image.model';
+import { ErrorType } from './country.service';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RandomImageService {
-  baseUrl = environment.US_API_BASE_URL
-  constructor(private httpClient: HttpClient) {
+  baseUrl = environment.US_API_BASE_URL;
+  constructor(private httpClient: HttpClient, private errorService: ErrorHandlingService) {
     console.log("inside service", this.baseUrl);
 
   }
@@ -25,20 +27,31 @@ export class RandomImageService {
       currentUrl += `search/photos?query=${country}&order_by=relevant&orientation=landscape`
 
 
-    console.log('this.baseUrl inside service:>> ', currentUrl);
     const result = this.httpClient.get(currentUrl)
       .pipe(
         tap((res) => console.log("if random, inside service ->", res)),
         map((res) => {
           if (country !== 'random') {
-            return (res as CountryImageRoot).results[0].urls.full
+            const urls = (res as CountryImageRoot).results.map((x) => x.urls.full)
+            return urls
           } else return res
+        }),
+        catchError((e) => {
+          if (e instanceof HttpErrorResponse)
+            this.errorService.setError({ name: "Http error " + e.status, message: e.message })
+          else this.errorService.setError({ name: 'Unknown', message: "Unknown Error" })
+
+          return ""
         })
       )
 
-
     return result;
+
 
   }
 
+
+
+
 }
+

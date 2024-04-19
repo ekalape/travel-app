@@ -23,7 +23,7 @@ export class PresentationComponent {
 
   constructor(private imageService: RandomImageService, private presentationService: PresentationService) {
     this.result = this.imageService.getRandomImage('random');
-    // presentationService.countContent();
+
   }
 
   ngOnInit() {
@@ -31,11 +31,6 @@ export class PresentationComponent {
 
     console.log("imgSrc", this.imgSrc);
 
-    /*    this.result.subscribe((res: any) => {
-         console.log(res);
-         this.imgSrc = res
-       }) */
-    //this.imgSrc = '../../../assets/images/city1-full.jpeg'
 
   }
 
