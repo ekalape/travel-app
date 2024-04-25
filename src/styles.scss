@@ -106,7 +106,7 @@ html,
 body {
   height: 100%;
   & * {
-    border: 1px solid red;
+    // border: 1px solid red;
   }
 }
 body {
@@ -125,9 +125,24 @@ body {
   font-weight: $weight;
   font-style: $style;
 }
+@mixin wrapFont($size: 24px) {
+  font-family: "Tilt Warp", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: $size;
+  text-shadow: 0px 0px 3px black;
+  color: white;
+}
 
 @mixin babylonica {
   font-family: "Babylonica", cursive;
   font-weight: 400;
+  font-style: normal;
+}
+@mixin prismFont {
+  font-family: "Tilt Prism", sans-serif;
+  font-weight: 400;
+
   font-style: normal;
 }

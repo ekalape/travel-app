@@ -3,12 +3,16 @@
   width: 100%;
 }
 .header__wrapper {
-  width: 100%;
+  /*   width: 100%; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  /*   background-color: rgba(128, 128, 128, 0.4);
+  */
+  backdrop-filter: blur(4px);
+  border-radius: 1rem;
   & .logo {
     width: 40px;
     height: 60px;
@@ -21,8 +25,8 @@
     gap: 2rem;
     margin-right: 2rem;
     & a {
-      @include montserrat(400);
-      color: white;
+      @include wrapFont(24px);
+
       text-decoration: none;
       transition: 0.3s;
       &:hover,

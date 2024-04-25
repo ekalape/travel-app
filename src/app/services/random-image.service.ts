@@ -32,7 +32,7 @@ export class RandomImageService {
         tap((res) => console.log("if random, inside service ->", res)),
         map((res) => {
           if (country !== 'random') {
-            const urls = (res as CountryImageRoot).results.map((x) => x.urls.full)
+            const urls = (res as CountryImageRoot).results.map((x) => x.urls.regular)
             return urls
           } else return res
         }),

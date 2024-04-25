@@ -2,11 +2,18 @@
   <div class="img-background" [ngStyle]="{ 'background-image': 'url(' + imgSrc + ')' }">
   </div>
   <div class="page__title">
-    <h1>TRAVEL </h1>
+    @if(!isCountry)
+    { <h1>TRAVEL </h1>
     <p class="with">with</p>
-    <h2>PROWINK</h2>
+    <h2>PROWINDLAB</h2>}
+    @else {
+    <h1>{{countryName|uppercase}}</h1>
+    <h2>{{offName|uppercase}}</h2>
+    }
   </div>
-  <app-search-block></app-search-block>
+  @if(!isCountry)
+  {<app-search-block></app-search-block>}
 
 </div>
-<app-canvas-box></app-canvas-box>
+@if(!isCountry)
+{<app-canvas-box></app-canvas-box>}

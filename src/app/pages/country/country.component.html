@@ -2,25 +2,14 @@
 
 <p>no such country</p>
 } @else{
-<div class="country-info__main">
+<app-presentation [isCountry]="true" [countryName]="currentCountry?.commonName"
+  [offName]="currentCountry?.offName" [src]="mainImgSrc"></app-presentation>
+<!-- <div class="country-info__main">
   <img class="country-info__main-img" [src]="mainImgSrc" />
   <h2 class="country-info__off-name">{{currentCountry?.offName}}</h2>
   <h4 class="country-info__common-name">{{currentCountry?.commonName}}</h4>
-</div>
+</div> -->
 
-<div class="country-info__information">
-  <div class="country-info__flag"></div>
-  <p>capital: {{currentCountry?.capital}}</p>
-  <p>region: {{currentCountry?.region}}</p>
-  <p>subregion: {{currentCountry?.subregion}}</p>
-  <p>population: {{currentCountry?.population}}</p>
-  <p>timezone: {{currentCountry?.timezone}}</p>
-  <p>languages: {{currentCountry?.languages}}</p>
-  <p>currencies: {{currentCountry?.currencies}}</p>
-  <div class="country-info__map"></div>
-
-  <div class="rating"></div>
-
-</div>
+<app-country-details [country]="currentCountry"></app-country-details>
 <div class="country-info__gallery"></div>
 }

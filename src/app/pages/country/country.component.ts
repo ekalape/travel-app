@@ -4,13 +4,15 @@ import { CountryInfoType } from '@src/app/models/country-info.model';
 import { CountryService, ErrorType } from '@src/app/services/country.service';
 import { ErrorHandlingService } from '@src/app/services/error-handling.service';
 import { RandomImageService } from '@src/app/services/random-image.service';
+import { CountryDetailsComponent } from '@src/app/shared-components/country-details/country-details.component';
+import { PresentationComponent } from '@src/app/shared-components/presentation/presentation.component';
 import { Subscription, tap } from 'rxjs';
 
 
 @Component({
   selector: 'app-country',
   standalone: true,
-  imports: [],
+  imports: [PresentationComponent, CountryDetailsComponent],
   templateUrl: './country.component.html',
   styleUrl: './country.component.scss'
 })
@@ -27,7 +29,6 @@ export class CountryComponent {
 
   constructor(private readonly route: ActivatedRoute,
     private readonly countryService: CountryService,
-    private readonly imageService: RandomImageService,
     private errorService: ErrorHandlingService
   ) {
 
@@ -42,8 +43,6 @@ export class CountryComponent {
 
     const country = this.route.snapshot.paramMap.get('country');
     if (country) {
-      console.log(country);
-      console.log("response inside component0 ->", this.currentCountry);
       this.sub = this.countryService.getCountryInfo(country)
         .pipe(tap((res) => console.log(res)))
         .subscribe((res) => {

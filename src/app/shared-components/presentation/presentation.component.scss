@@ -1,7 +1,7 @@
 @import "../../../styles.scss";
 
-$marginTop: 240px;
-$marginLeft: 200px;
+$marginTop: 180px;
+$marginLeft: 160px;
 
 :host {
   max-width: 100vw;
@@ -14,8 +14,8 @@ $marginLeft: 200px;
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 100vw;
-  height: 900px;
+  width: 100%;
+  height: 100vh;
   display: block;
   background-position: top center;
   background-repeat: no-repeat;
@@ -39,29 +39,27 @@ $marginLeft: 200px;
   z-index: 3;
 
   & h1 {
-    font-size: 72px;
+    font-size: 120px;
     font-weight: 700;
     color: white;
-    @include montserrat(700);
+    @include prismFont();
     line-height: 85%;
     margin: 0;
+    text-shadow: 0px 0px 8px black;
   }
   & h2 {
-    color: rgba(255, 255, 255, 0);
-    font-size: 100px;
-    -webkit-text-stroke-color: white;
-    -webkit-text-stroke-width: 1px;
-    @include montserrat(900);
+    @include wrapFont(102px);
     line-height: 85%;
     margin: 0;
+    text-shadow: 0px 0px 8px black;
   }
   & .with {
     @include babylonica();
     position: absolute;
-    top: 10px;
+    top: 35px;
     color: yellow;
     font-size: 102px;
-    right: 20%;
+    right: 5%;
     line-height: 80%;
     margin: 0;
   }

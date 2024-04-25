@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RandomImageService } from '@src/app/services/random-image.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -21,13 +21,18 @@ export class PresentationComponent {
   presentationText = "travel prowink";
   additiveText = "with"
 
+  @Input() isCountry: boolean = false;
+  @Input() countryName: string | undefined = "";
+  @Input() offName: string | undefined = "";
+  @Input() src = ""
+
   constructor(private imageService: RandomImageService, private presentationService: PresentationService) {
     this.result = this.imageService.getRandomImage('random');
 
   }
 
   ngOnInit() {
-    this.imgSrc = this.presentationService.getRandomCityImage();
+    this.imgSrc = this.isCountry ? this.src : this.presentationService.getRandomCityImage();
 
     console.log("imgSrc", this.imgSrc);
 
